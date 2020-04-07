@@ -1,7 +1,6 @@
 const covid19ImpactEstimator = (data) => {
   console.log(data);
   const {
-    periodType,
     reportedCases,
     timeToElapse
   } = data;
@@ -13,7 +12,6 @@ const covid19ImpactEstimator = (data) => {
   // calculate the number of currently infected for both impact and severe impact
   const currentlyInfected = (factor) => reportedCases * factor;
   const infectionsByRequestedTime = (time) => {
-    console.log(periodType);
     const multiplier = 2 ** (time / 3);
     return multiplier;
   };
