@@ -14,20 +14,23 @@ const covid19ImpactEstimator = (data) => {
   const currentlyInfected = (factor) => reportedCases * factor;
   const infectionsByRequestedTime = (time) => {
     let t = time;
+    let multiplier;
     switch (periodType) {
       case 'days':
         t *= 1;
+        multiplier = 2 ** (t / 3);
         break;
       case 'weeks':
         t *= 7;
+        multiplier = 2 ** (t / 3);
         break;
       case 'months':
         t *= 31;
+        multiplier = 2 ** (t / 3);
         break;
       default:
         break;
     }
-    const multiplier = 2 ** (t / 3);
     return multiplier;
   };
   result.impact.currentlyInfected = currentlyInfected(10);
