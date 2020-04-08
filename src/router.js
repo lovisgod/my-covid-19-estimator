@@ -7,6 +7,10 @@ router.post('/on-covid-19', handleRequest);
 router.get('/on-covid-19/logs', getLogs);
 
 router.get('/', (req, res) => {
-  res.status(200).send('Welcome home');
+  try {
+    res.status(200).send('Welcome home');
+  } catch (error) {
+    console.log(error);
+  }
 });
 module.exports = router;
