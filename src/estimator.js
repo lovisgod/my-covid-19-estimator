@@ -63,16 +63,16 @@ const covid19ImpactEstimator = (data) => {
   result.severeImpact.casesForVentilatorsByRequestedTime = (
     result.severeImpact.infectionsByRequestedTime * 0.02
   );
-//   result.impact.dollarsInFlight = (
-//     (
-//       result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-//       * region.avgDailyIncomeInUSD * t
-//   );
-//   result.severeImpact.dollarsInFlight = (
-//     (
-//       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-//       * region.avgDailyIncomeInUSD * t
-//   );
+  //   result.impact.dollarsInFlight = (
+  //     (
+  //       result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
+  //       * region.avgDailyIncomeInUSD * t
+  //   );
+  //   result.severeImpact.dollarsInFlight = (
+  //     (
+  //       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
+  //       * region.avgDailyIncomeInUSD * t
+  //   );
   console.log(result);
   return result;
 };
