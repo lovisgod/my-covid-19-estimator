@@ -12,33 +12,34 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: {}
   };
 
-  let t = timeToElapse;
-  switch (periodType) {
-    case 'days':
-      t *= 1;
-      break;
-    case 'weeks':
-      t *= 7;
-      break;
-    case 'months':
-      t *= 31;
-      break;
-    default:
-      break;
-  }
+
   // calculate the number of currently infected for both impact and severe impact
   const currentlyInfected = (factor) => reportedCases * factor;
   const infectionsByRequestedTime = (time) => {
+    let t = time;
+    switch (periodType) {
+      case 'days':
+        t *= 1;
+        break;
+      case 'weeks':
+        t *= 7;
+        break;
+      case 'months':
+        t *= 31;
+        break;
+      default:
+        break;
+    }
     const multiplier = 2 ** Math.floor(time / 3);
     return multiplier;
   };
   result.impact.currentlyInfected = currentlyInfected(10);
   result.severeImpact.currentlyInfected = currentlyInfected(50);
   result.impact.infectionsByRequestedTime = (
-    result.impact.currentlyInfected * infectionsByRequestedTime(t)
+    result.impact.currentlyInfected * infectionsByRequestedTime(timeToElapse)
   );
   result.severeImpact.infectionsByRequestedTime = (
-    result.severeImpact.currentlyInfected * infectionsByRequestedTime(t)
+    result.severeImpact.currentlyInfected * infectionsByRequestedTime(timeToElapse)
   );
   result.impact.severeCasesByRequestedTime = result.impact.infectionsByRequestedTime * 0.15;
   result.severeImpact.severeCasesByRequestedTime = (
@@ -62,16 +63,16 @@ const covid19ImpactEstimator = (data) => {
   result.severeImpact.casesForVentilatorsByRequestedTime = (
     result.severeImpact.infectionsByRequestedTime * 0.02
   );
-  result.impact.dollarsInFlight = (
-    (
-      result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-      * region.avgDailyIncomeInUSD * t
-  );
-  result.severeImpact.dollarsInFlight = (
-    (
-      result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-      * region.avgDailyIncomeInUSD * t
-  );
+//   result.impact.dollarsInFlight = (
+//     (
+//       result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
+//       * region.avgDailyIncomeInUSD * t
+//   );
+//   result.severeImpact.dollarsInFlight = (
+//     (
+//       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
+//       * region.avgDailyIncomeInUSD * t
+//   );
   console.log(result);
   return result;
 };
