@@ -8,6 +8,7 @@ router.get('/on-covid-19/logs', getLogs);
 
 router.get('/', (req, res) => {
   try {
+    console.log('this is working very well');
     res.status(200).send('Welcome home');
   } catch (error) {
     console.log(error);
