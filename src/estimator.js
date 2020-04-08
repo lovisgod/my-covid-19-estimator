@@ -30,7 +30,7 @@ const covid19ImpactEstimator = (data) => {
       default:
         break;
     }
-    const multiplier = 2 ** Math.floor(time / 3);
+    const multiplier = 2 ** Math.floor(t / 3);
     return multiplier;
   };
   result.impact.currentlyInfected = currentlyInfected(10);
