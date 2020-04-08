@@ -74,7 +74,7 @@ const covid19ImpactEstimator = (data) => {
       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
         * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
   );
-  console.log(result);
+//   console.log(result);
   return result;
 };
 
@@ -92,4 +92,4 @@ const covid19ImpactEstimator = (data) => {
 //   periodType: 'months'
 // });
 
-export default covid19ImpactEstimator;
+module.exports = covid19ImpactEstimator;
