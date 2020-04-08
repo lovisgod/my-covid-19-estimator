@@ -1,9 +1,9 @@
 const covid19ImpactEstimator = (data) => {
-  console.log(data);
   const {
     reportedCases,
     timeToElapse,
-    periodType
+    periodType,
+    totalHospitalBeds
   } = data;
   const result = {
     data,
@@ -38,8 +38,26 @@ const covid19ImpactEstimator = (data) => {
   result.severeImpact.infectionsByRequestedTime = (
     currentlyInfected(50) * infectionsByRequestedTime(timeToElapse)
   );
+  result.impact.severeCasesByRequestedTime = result.impact.infectionsByRequestedTime * 0.15;
+  result.severeImpact.severeCasesByRequestedTime = (
+    result.severeImpact.infectionsByRequestedTime * 0.15
+  );
+  result.impact.hospitalBedsByRequestedTime = (
+    (0.35 * totalHospitalBeds) - result.impact.infectionsByRequestedTime
+  );
+  result.severeImpact.hospitalBedsByRequestedTime = (
+    (0.35 * totalHospitalBeds) - result.severeImpact.infectionsByRequestedTime
+  );
   console.log(result);
   return result;
 };
+
+// covid19ImpactEstimator({
+//   reportedCases: 1273,
+//   population: 87001496,
+//   totalHospitalBeds: 1158542,
+//   timeToElapse: 152,
+//   periodType: 'days'
+// });
 
 export default covid19ImpactEstimator;
