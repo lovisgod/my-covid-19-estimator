@@ -39,41 +39,42 @@ const covid19ImpactEstimator = (data) => {
   result.impact.infectionsByRequestedTime = (
     result.impact.currentlyInfected * infectionsByRequestedTime(timeToElapse).multiplier
   );
-  result.severeImpact.infectionsByRequestedTime = (
-    result.severeImpact.currentlyInfected * infectionsByRequestedTime(timeToElapse).multiplier
-  );
+  //   result.severeImpact.infectionsByRequestedTime = (
+  //     result.severeImpact.currentlyInfected * infectionsByRequestedTime(timeToElapse).multiplier
+  //   );
   result.impact.severeCasesByRequestedTime = result.impact.infectionsByRequestedTime * 0.15;
-  result.severeImpact.severeCasesByRequestedTime = (
-    result.severeImpact.infectionsByRequestedTime * 0.15
-  );
+  //   result.severeImpact.severeCasesByRequestedTime = (
+  //     result.severeImpact.infectionsByRequestedTime * 0.15
+  //   );
   result.impact.hospitalBedsByRequestedTime = (
     (0.35 * totalHospitalBeds) - result.impact.severeCasesByRequestedTime
   );
-  result.severeImpact.hospitalBedsByRequestedTime = (
-    (0.35 * totalHospitalBeds) - result.severeImpact.severeCasesByRequestedTime
-  );
+  //   result.severeImpact.hospitalBedsByRequestedTime = (
+  //     (0.35 * totalHospitalBeds) - result.severeImpact.severeCasesByRequestedTime
+  //   );
   result.impact.casesForICUByRequestedTime = (
     result.impact.infectionsByRequestedTime * 0.05
   );
-  result.severeImpact.casesForICUByRequestedTime = (
-    result.severeImpact.infectionsByRequestedTime * 0.05
-  );
+  //   result.severeImpact.casesForICUByRequestedTime = (
+  //     result.severeImpact.infectionsByRequestedTime * 0.05
+  //   );
   result.impact.casesForVentilatorsByRequestedTime = (
     result.impact.infectionsByRequestedTime * 0.02
   );
-  result.severeImpact.casesForVentilatorsByRequestedTime = (
-    result.severeImpact.infectionsByRequestedTime * 0.02
-  );
+  //   result.severeImpact.casesForVentilatorsByRequestedTime = (
+  //     result.severeImpact.infectionsByRequestedTime * 0.02
+  //   );
   result.impact.dollarsInFlight = (
     (
       result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
         * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
   );
-  result.severeImpact.dollarsInFlight = (
-    (
-      result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-        * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
-  );
+  //   result.severeImpact.dollarsInFlight = (
+  //     (
+  //       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
+  //         * region.avgDailyIncomeInUSD
+  //         * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
+  //   );
   console.log(result);
   return result;
 };
