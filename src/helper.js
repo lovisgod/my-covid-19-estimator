@@ -1,15 +1,7 @@
-const DataStore = require('nedb');
 const xml = require('xml');
 const estimator = require('./estimator');
 
 const logs = [];
-
-const db = new DataStore({ filename: '../logs', autoload: true, timestampData: false });
-db.ensureIndex({ fieldName: 'id', unique: true }, (err) => {
-  if (err) {
-    console.log(err);
-  }
-});
 
 const getDurationInMilliseconds = (start) => {
   const NS_PER_SEC = 1e9;
@@ -58,7 +50,6 @@ const getLogs = (req, res) => {
 
 module.exports = {
   getDurationInMilliseconds,
-  db,
   handleRequest,
   getLogs
 };
