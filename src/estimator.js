@@ -43,20 +43,20 @@ const covid19ImpactEstimator = (data) => {
     result.severeImpact.infectionsByRequestedTime * 0.15
   );
   result.impact.hospitalBedsByRequestedTime = (
-    (0.35 * totalHospitalBeds) - result.impact.infectionsByRequestedTime
+    (0.35 * totalHospitalBeds) - result.impact.severeCasesByRequestedTime
   );
   result.severeImpact.hospitalBedsByRequestedTime = (
-    (0.35 * totalHospitalBeds) - result.severeImpact.infectionsByRequestedTime
+    (0.35 * totalHospitalBeds) - result.severeImpact.severeCasesByRequestedTime
   );
   console.log(result);
   return result;
 };
 
 // covid19ImpactEstimator({
-//   reportedCases: 1273,
-//   population: 87001496,
-//   totalHospitalBeds: 1158542,
-//   timeToElapse: 152,
+//   reportedCases: 4109,
+//   population: 41503276,
+//   totalHospitalBeds: 434486,
+//   timeToElapse: 64,
 //   periodType: 'days'
 // });
 
