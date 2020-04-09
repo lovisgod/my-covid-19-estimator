@@ -74,7 +74,7 @@ const covid19ImpactEstimator = (data) => {
       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
         * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
   );
-//   console.log(result);
+  //   console.log(result);
   return result;
 };
 
