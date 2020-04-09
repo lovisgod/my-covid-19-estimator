@@ -31,7 +31,7 @@ const covid19ImpactEstimator = (data) => {
         break;
     }
     const dollarMultiplierTIme = t;
-    const multiplier = 2 ** Math.floor(t / 3);
+    const multiplier = 2 ** (t / 3);
     return { multiplier, dollarMultiplierTIme };
   };
   result.impact.currentlyInfected = currentlyInfected(10);
@@ -74,7 +74,7 @@ const covid19ImpactEstimator = (data) => {
       result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
         * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
   );
-  //   console.log(result);
+  console.log(result);
   return result;
 };
 
