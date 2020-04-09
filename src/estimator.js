@@ -92,4 +92,4 @@ const covid19ImpactEstimator = (data) => {
 //   periodType: 'months'
 // });
 
-module.exports = covid19ImpactEstimator;
+export default covid19ImpactEstimator;
