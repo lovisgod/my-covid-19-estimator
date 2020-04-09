@@ -47,10 +47,10 @@ const covid19ImpactEstimator = (data) => {
     result.severeImpact.infectionsByRequestedTime * 0.15
   );
   result.impact.hospitalBedsByRequestedTime = (
-    Math.round(0.35 * totalHospitalBeds) - result.impact.severeCasesByRequestedTime
+    Math.trunc(0.35 * totalHospitalBeds) - result.impact.severeCasesByRequestedTime
   );
   result.severeImpact.hospitalBedsByRequestedTime = (
-    Math.round(0.35 * totalHospitalBeds) - result.severeImpact.severeCasesByRequestedTime
+    Math.trunc(0.35 * totalHospitalBeds) - result.severeImpact.severeCasesByRequestedTime
   );
   result.impact.casesForICUByRequestedTime = (
     result.impact.infectionsByRequestedTime * 0.05
@@ -82,26 +82,26 @@ const covid19ImpactEstimator = (data) => {
 //   region: {
 //     name: 'Africa',
 //     avgAge: 19.7,
-//     avgDailyIncomeInUSD: 5,
-//     avgDailyIncomePopulation: 0.81
+//     avgDailyIncomeInUSD: 4,
+//     avgDailyIncomePopulation: 0.8
 //   },
-//   reportedCases: 2970,
-//   population: 134637126,
-//   totalHospitalBeds: 2268216,
-//   timeToElapse: 12,
+//   reportedCases: 345,
+//   population: 57532698,
+//   totalHospitalBeds: 153384,
+//   timeToElapse: 6,
 //   periodType: 'weeks'
 // });
 // covid19ImpactEstimator({
 //   region: {
 //     name: 'Africa',
 //     avgAge: 19.7,
-//     avgDailyIncomeInUSD: 4,
-//     avgDailyIncomePopulation: 0.79
+//     avgDailyIncomeInUSD: 2,
+//     avgDailyIncomePopulation: 0.77
 //   },
-//   reportedCases: 2626,
-//   population: 165641621,
-//   totalHospitalBeds: 2992324,
-//   timeToElapse: 3,
+//   reportedCases: 3140,
+//   population: 35347343,
+//   totalHospitalBeds: 1760884,
+//   timeToElapse: 4,
 //   periodType: 'months'
 // });
 
