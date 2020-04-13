@@ -26,7 +26,7 @@ const handleRequest = (req, res) => {
   }
   const start = process.hrtime();
   if (res.headersSent) {
-    const durationInMilliseconds = getDurationInMilliseconds(start);
+    const durationInMilliseconds = Math.trunc(getDurationInMilliseconds(start));
     const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
       .toLocaleString()} ms\n`;
     fs.appendFile(
