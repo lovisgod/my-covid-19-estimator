@@ -34,28 +34,30 @@ const covid19ImpactEstimator = (data) => {
     const multiplier = 2 ** Math.floor(t / 3);
     return { multiplier, dollarMultiplierTIme };
   };
-  result.impact.currentlyInfected = Math.floor(currentlyInfected(10));
-  result.severeImpact.currentlyInfected = Math.floor(currentlyInfected(50));
+  result.impact.currentlyInfected = currentlyInfected(10);
+  result.severeImpact.currentlyInfected = currentlyInfected(50);
   result.impact.infectionsByRequestedTime = (
     result.impact.currentlyInfected * infectionsByRequestedTime(timeToElapse).multiplier
   );
   result.severeImpact.infectionsByRequestedTime = (
     result.severeImpact.currentlyInfected * infectionsByRequestedTime(timeToElapse).multiplier
   );
-  result.impact.severeCasesByRequestedTime = result.impact.infectionsByRequestedTime * 0.15;
-  result.severeImpact.severeCasesByRequestedTime = (
+  result.impact.severeCasesByRequestedTime = Math.ceil(
+    result.impact.infectionsByRequestedTime * 0.15
+  );
+  result.severeImpact.severeCasesByRequestedTime = Math.ceil(
     result.severeImpact.infectionsByRequestedTime * 0.15
   );
-  result.impact.hospitalBedsByRequestedTime = (
+  result.impact.hospitalBedsByRequestedTime = Math.ceil(
     Math.ceil(0.35 * totalHospitalBeds) - result.impact.severeCasesByRequestedTime
   );
-  result.severeImpact.hospitalBedsByRequestedTime = (
+  result.severeImpact.hospitalBedsByRequestedTime = Math.ceil(
     Math.ceil(0.35 * totalHospitalBeds) - result.severeImpact.severeCasesByRequestedTime
   );
-  result.impact.casesForICUByRequestedTime = (
+  result.impact.casesForICUByRequestedTime = Math.floor(
     result.impact.infectionsByRequestedTime * 0.05
   );
-  result.severeImpact.casesForICUByRequestedTime = (
+  result.severeImpact.casesForICUByRequestedTime = Math.floor(
     result.severeImpact.infectionsByRequestedTime * 0.05
   );
   result.impact.casesForVentilatorsByRequestedTime = (
@@ -64,15 +66,13 @@ const covid19ImpactEstimator = (data) => {
   result.severeImpact.casesForVentilatorsByRequestedTime = (
     Math.floor(result.severeImpact.infectionsByRequestedTime * 0.02)
   );
-  result.impact.dollarsInFlight = (
-    (
-      result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-        * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
+  result.impact.dollarsInFlight = Math.floor(
+    (result.impact.infectionsByRequestedTime * region.avgDailyIncomePopulation
+      * region.avgDailyIncomeInUSD) / infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
   );
-  result.severeImpact.dollarsInFlight = (
-    (
-      result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation)
-        * region.avgDailyIncomeInUSD * infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
+  result.severeImpact.dollarsInFlight = Math.floor(
+    (result.severeImpact.infectionsByRequestedTime * region.avgDailyIncomePopulation
+        * region.avgDailyIncomeInUSD) / infectionsByRequestedTime(timeToElapse).dollarMultiplierTIme
   );
   console.log(result);
   return result;
@@ -82,13 +82,13 @@ const covid19ImpactEstimator = (data) => {
 //   region: {
 //     name: 'Africa',
 //     avgAge: 19.7,
-//     avgDailyIncomeInUSD: 2,
-//     avgDailyIncomePopulation: 0.78
+//     avgDailyIncomeInUSD: 1,
+//     avgDailyIncomePopulation: 0.65
 //   },
-//   reportedCases: 3108,
-//   population: 117443211,
-//   totalHospitalBeds: 912638,
-//   timeToElapse: 98,
+//   reportedCases: 633,
+//   population: 8843395,
+//   totalHospitalBeds: 83349,
+//   timeToElapse: 36,
 //   periodType: 'days'
 // });
 // covid19ImpactEstimator({
@@ -96,13 +96,13 @@ const covid19ImpactEstimator = (data) => {
 //     name: 'Africa',
 //     avgAge: 19.7,
 //     avgDailyIncomeInUSD: 3,
-//     avgDailyIncomePopulation: 0.66
+//     avgDailyIncomePopulation: 0.58
 //   },
-//   reportedCases: 1784,
-//   population: 148869565,
-//   totalHospitalBeds: 1993352,
-//   timeToElapse: 2,
-//   periodType: 'months'
+//   reportedCases: 613,
+//   population: 6661572,
+//   totalHospitalBeds: 142057,
+//   timeToElapse: 12,
+//   periodType: 'weeks'
 // });
 
 module.exports = covid19ImpactEstimator;
