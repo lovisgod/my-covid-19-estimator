@@ -27,7 +27,7 @@ const handleRequest = (req, res) => {
   const start = process.hrtime();
   if (res.headersSent) {
     const durationInMilliseconds = Math.trunc(getDurationInMilliseconds(start));
-    const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
+    const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t0${durationInMilliseconds
       .toLocaleString()} ms\n`;
     fs.appendFile(
       `${__dirname}/logs.txt`,
