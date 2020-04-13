@@ -46,25 +46,26 @@ const getLogs = (req, res) => {
   // res.type('text/plain');
   fs.readFile(`${__dirname}/logs.txt`, 'utf8', (err, data) => {
     if (err) throw err;
-    res.type('text/plain');
+    res.setHeader('Content-Type', 'text/plain');
     res.status(200).send(data);
+
+    if (res.headersSent) {
+      const durationInMilliseconds = Math.floor(getDurationInMilliseconds(start));
+      const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
+        .toLocaleString()}ms\n`;
+      fs.appendFile(
+        `${__dirname}/logs.txt`,
+        log,
+        (error) => {
+          if (error) throw error;
+        }
+      );
+      console.log(log);
+      logs.push(log);
+      console.log(logs);
+    }
   });
   // res.status(200).send(logs.toString().split(',').join(''));
-  if (res.headersSent) {
-    const durationInMilliseconds = Math.floor(getDurationInMilliseconds(start));
-    const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
-      .toLocaleString()}ms\n`;
-    fs.appendFile(
-      `${__dirname}/logs.txt`,
-      log,
-      (err) => {
-        if (err) throw err;
-      }
-    );
-    console.log(log);
-    logs.push(log);
-    console.log(logs);
-  }
 };
 
 module.exports = {
