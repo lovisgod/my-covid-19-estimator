@@ -26,8 +26,7 @@ const handleRequest = (req, res) => {
   const start = process.hrtime();
   if (res.headersSent) {
     const durationInMilliseconds = getDurationInMilliseconds(start);
-    const log = (`${new Date()
-      .toISOString()}\t\t${req.originalUrl}\t\tdone in ${durationInMilliseconds
+    const log = (`${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
       .toLocaleString()} ms\n`);
     console.log(log);
     logs.push(log);
@@ -40,8 +39,7 @@ const getLogs = (req, res) => {
   res.status(200).send(logs.toString().split(',').join(''));
   if (res.headersSent) {
     const durationInMilliseconds = getDurationInMilliseconds(start);
-    const log = (`${new Date()
-      .toISOString()}\t\t${req.originalUrl}\t\tdone in ${durationInMilliseconds
+    const log = (`${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
       .toLocaleString()} ms\n`);
     console.log(log);
     logs.push(log);
