@@ -1,3 +1,4 @@
+const fs = require('fs');
 const estimator = require('./estimator');
 const generator = require('./xmlGenerator');
 
@@ -26,8 +27,15 @@ const handleRequest = (req, res) => {
   const start = process.hrtime();
   if (res.headersSent) {
     const durationInMilliseconds = getDurationInMilliseconds(start);
-    const log = (`${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
-      .toLocaleString()} ms\n`);
+    const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
+      .toLocaleString()} ms\n`;
+    fs.appendFile(
+      `${__dirname}/logs.txt`,
+      log,
+      (err) => {
+        if (err) throw err;
+      }
+    );
     console.log(log);
     logs.push(log);
   }
@@ -35,12 +43,24 @@ const handleRequest = (req, res) => {
 
 const getLogs = (req, res) => {
   const start = process.hrtime();
-  res.type('text/plain');
-  res.status(200).send(logs.toString().split(',').join(''));
+  // res.type('text/plain');
+  fs.readFile(`${__dirname}/logs.txt`, 'utf8', (err, data) => {
+    if (err) throw err;
+    res.type('text/plain');
+    res.status(200).send(data);
+  });
+  // res.status(200).send(logs.toString().split(',').join(''));
   if (res.headersSent) {
     const durationInMilliseconds = Math.trunc(getDurationInMilliseconds(start));
-    const log = (`${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
-      .toLocaleString()}ms\n`);
+    const log = `${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
+      .toLocaleString()}ms\n`;
+    fs.appendFile(
+      `${__dirname}/logs.txt`,
+      log,
+      (err) => {
+        if (err) throw err;
+      }
+    );
     console.log(log);
     logs.push(log);
     console.log(logs);
