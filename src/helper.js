@@ -38,8 +38,8 @@ const getLogs = (req, res) => {
   res.type('text/plain');
   res.status(200).send(logs.toString().split(',').join(''));
   if (res.headersSent) {
-    const durationInMilliseconds = getDurationInMilliseconds(start);
-    const log = (`${req.method}\t\t${req.originalUrl}\t\t200\t\t${durationInMilliseconds
+    const durationInMilliseconds = Math.trunc(getDurationInMilliseconds(start));
+    const log = (`${req.method}  ${req.originalUrl}  200  ${durationInMilliseconds
       .toLocaleString()} ms\n`);
     console.log(log);
     logs.push(log);
