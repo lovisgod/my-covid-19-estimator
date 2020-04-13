@@ -1,5 +1,5 @@
-const xml = require('xml');
 const estimator = require('./estimator');
+const generator = require('./xmlGenerator');
 
 const logs = [];
 
@@ -17,9 +17,9 @@ const handleRequest = (req, res) => {
   if (req.params.type === 'json') {
     res.format({ json: () => (res.send(result)) });
   } else if (req.params.type === 'xml') {
-    res.set('Content-Type', 'text/xml');
-    const stxml = [{ data: `${JSON.stringify(result)}` }];
-    res.send(xml(stxml));
+    res.type('application/xml');
+    const xml = generator(result);
+    res.send(xml);
   } else if (!req.params.type) {
     res.format({ json: () => (res.send(result)) });
   }
@@ -36,6 +36,7 @@ const handleRequest = (req, res) => {
 
 const getLogs = (req, res) => {
   const start = process.hrtime();
+  res.type('text/plain');
   res.status(200).send(logs.toString().split(',').join(''));
   if (res.headersSent) {
     const durationInMilliseconds = getDurationInMilliseconds(start);
